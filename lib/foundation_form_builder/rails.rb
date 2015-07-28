@@ -70,6 +70,7 @@ module FoundationFormBuilder
           numeric: :number_field,
           password: :password_field,
           textarea: :text_area,
+          datetime_local: :datetime_local_field
         }
 
         field_method = method_mappings[type] || :text_field
