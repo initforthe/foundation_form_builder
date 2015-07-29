@@ -14,9 +14,9 @@ module FoundationFormBuilder
     # @param values [Array] Name-value pairs for +<option>+ elements. Only meaningful with +type:+ +:select+.
     # @param field [Hash] Options to pass through to the underlying Rails form helper. For +type:+ +:time_zone+, +:priority_zones+ is also understood.
     # @return [SafeBuffer] The rendered HTML
-    def input_div(field_name, label: nil, type: nil, values: nil, field: {})
+    def input_div(field_name, label: nil, type: nil, values: nil, field: {}, classes: nil)
       raise ArgumentError, ':values is only meaningful with type: :select' if values && type != :select
-      @template.content_tag :div, class: classes_for(field_name) do
+      @template.content_tag :div, class: classes_for(field_name, classes) do
         [
           label(field_name, label),
           input_for(field_name, type, field, values: values),
@@ -27,8 +27,8 @@ module FoundationFormBuilder
 
     private
 
-    def classes_for(field_name)
-      [field_name, error_class(field_name)]
+    def classes_for(field_name, classes)
+      [field_name, error_class(field_name), classes]
     end
 
     def error_class(field_name)
